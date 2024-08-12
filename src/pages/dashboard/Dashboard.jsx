@@ -21,7 +21,7 @@ const Dashboard = () => {
 
     const fetchChannels = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/channels', {
+            const response = await axios.get('https://ilct-platform.onrender.com/channels', {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },

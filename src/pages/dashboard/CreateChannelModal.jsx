@@ -8,7 +8,7 @@ const CreateChannelModal = ({ open, handleClose, onChannelCreated }) => {
     const handleSubmit = async () => {
         if (newChannelName) {
             try {
-                await axios.post('http://localhost:5000/add-channel', { name: newChannelName }, {
+                await axios.post('https://ilct-platform.onrender.com/add-channel', { name: newChannelName }, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     },

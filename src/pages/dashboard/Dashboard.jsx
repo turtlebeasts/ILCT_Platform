@@ -21,7 +21,7 @@ const Dashboard = () => {
 
     const fetchChannels = async () => {
         try {
-            const response = await axios.get('https://ilct-platform.onrender.com/channels', {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL_GLOBAL}/channels`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },

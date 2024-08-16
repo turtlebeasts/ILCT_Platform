@@ -13,7 +13,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('https://ilct-platform.onrender.com/login', {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL_GLOBAL}/login`, {
                 email,
                 password,
             });
@@ -28,7 +28,21 @@ const Login = () => {
                 setMessage('Login failed. Please try again.');
             }
         } catch (error) {
-            console.error('Error logging in user:', error);
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.error('Response data:', error.response.data);
+                console.error('Response status:', error.response.status);
+                console.error('Response headers:', error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an instance of XMLHttpRequest in the browser
+                // and an instance of http.ClientRequest in Node.js
+                console.error('Request data:', error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.error('Error message:', error.message);
+            }
             setMessage('Invalid email or password');
         }
     };

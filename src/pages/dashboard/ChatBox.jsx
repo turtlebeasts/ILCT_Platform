@@ -3,7 +3,7 @@ import { Box, Typography, TextField, Button, Card, CardContent, CardActions, Ava
 import axios from 'axios';
 import io from 'socket.io-client';
 
-const socket = io('https://ilct-platform.onrender.com/'); // Connect to the Socket.IO server
+const socket = io(import.meta.env.VITE_API_URL_GLOBAL); // Connect to the Socket.IO server
 const user_id = localStorage.getItem('user_id');
 const user_email = localStorage.getItem('user_email');
 
@@ -18,7 +18,7 @@ const ChatBox = ({ channelId, channelName }) => {
     useEffect(() => {
         const fetchMessages = async () => {
             try {
-                const response = await axios.get(`https://ilct-platform.onrender.com/channels/${channelId}/messages`, {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL_GLOBAL}/channels/${channelId}/messages`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     },
@@ -61,7 +61,7 @@ const ChatBox = ({ channelId, channelName }) => {
     const handleSendMessage = async () => {
         if (newMessage.trim() !== '') {
             try {
-                await axios.post(`https://ilct-platform.onrender.com/channels/${channelId}/messages`, {
+                await axios.post(`${import.meta.env.VITE_API_URL_GLOBAL}/channels/${channelId}/messages`, {
                     content: {
                         user_id: user_id,
                         message: newMessage,

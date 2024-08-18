@@ -3,7 +3,7 @@ import { Box, Typography, TextField, Button, Card, CardContent, CardActions, Ava
 import axios from 'axios';
 import io from 'socket.io-client';
 
-const socket = io(import.meta.env.VITE_API_URL_GLOBAL); // Connect to the Socket.IO server
+const socket = io(import.meta.env.VITE_API_URL_GLOBAL);
 const user_id = localStorage.getItem('user_id');
 const user_email = localStorage.getItem('user_email');
 

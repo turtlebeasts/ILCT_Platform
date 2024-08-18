@@ -8,11 +8,11 @@ import {
     DialogTitle,
 } from '@mui/material';
 
-function DeleteChannelModal({ channelName, onDelete, onCancel }) {
+function DeleteChannelModal({ channelName, onDelete, onCancel, deleteModalOpen }) {
     return (
         <Dialog
-            open={true}
-            onClose={onCancel(false)}
+            open={deleteModalOpen}
+            onClose={() => onCancel(false)}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
         >
@@ -23,10 +23,10 @@ function DeleteChannelModal({ channelName, onDelete, onCancel }) {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={onCancel(false)} color="primary">
+                <Button onClick={() => onCancel(false)} color="primary">
                     Cancel
                 </Button>
-                <Button onClick={onDelete} color="primary" autoFocus>
+                <Button onClick={onDelete} color="error" variant="contained" autoFocus>
                     Delete
                 </Button>
             </DialogActions>

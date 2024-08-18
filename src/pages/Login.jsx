@@ -19,7 +19,6 @@ const Login = () => {
             });
 
             if (response.data.token) {
-                console.log(response.data)
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('user_id', response.data.user.id);
                 localStorage.setItem('user_email', response.data.user.email);

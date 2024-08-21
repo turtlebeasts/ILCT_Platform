@@ -20,7 +20,7 @@ export default function PasswordConfirmation({ password, confirmPassword }) {
                 password && confirmPassword ?
                     confirmed ?
                         <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center' }}>
-                            <CheckCircleIcon color="success" fontSize="" /> Password Confirmed
+                            <CheckCircleIcon color="success" /> Password Confirmed
                         </Typography>
                         :
                         <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center' }}>

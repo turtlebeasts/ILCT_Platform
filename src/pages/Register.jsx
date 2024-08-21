@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { TextField, Button, Container, Box, Typography } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import PasswordStrength from '../components/PasswordStrength';
+import PasswordConfirmation from '../components/PasswordConfirmation';
 
 const Register = () => {
     const [firstName, setFirstName] = useState('');
@@ -78,6 +80,8 @@ const Register = () => {
                         required
                         autoComplete='new-password'
                     />
+                    {password !== '' && "Password Strength "}
+                    <PasswordStrength password={password} />
                     <TextField
                         label="Confirm Password"
                         type="password"
@@ -87,6 +91,7 @@ const Register = () => {
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
                     />
+                    <PasswordConfirmation password={password} confirmPassword={confirmPassword} />
                     <Button type="submit" variant="contained" color="primary">
                         Register
                     </Button>

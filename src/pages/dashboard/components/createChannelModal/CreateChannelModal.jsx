@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
 import { Modal, Box, Typography, TextField, Button } from '@mui/material';
 import axios from 'axios';
+import { fetchChannels } from '../../../../api/channelService';
 
-const CreateChannelModal = ({ open, handleClose, onChannelCreated }) => {
+const CreateChannelModal = ({ open, handleClose, setChannels }) => {
     const [newChannelName, setNewChannelName] = useState('');
 
     const handleSubmit = async () => {
         if (newChannelName) {
             try {
-                await axios.post(`${import.meta.env.VITE_API_URL_GLOBAL}/add-channel`, { name: newChannelName }, {
+                await axios.post(`${import.meta.env.VITE_API_URL_GLOBAL}/channel/add-channel`, { name: newChannelName }, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     },
                 });
                 setNewChannelName('');
                 handleClose();
-                if (onChannelCreated) {
-                    onChannelCreated(); // Notify parent component to refetch channels
-                }
+                setChannels(await fetchChannels())
             } catch (error) {
                 console.error('Error creating channel:', error);
             }

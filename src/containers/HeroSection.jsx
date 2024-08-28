@@ -1,5 +1,6 @@
 import { Card, CardContent, Grid, Typography, Button } from "@mui/material";
 import { ReactTyped } from "react-typed";
+import { Link } from "react-router-dom";
 
 export default function HeroSection() {
     return (
@@ -24,7 +25,7 @@ export default function HeroSection() {
                         <Typography variant='h1' sx={{ mb: 2, fontSize: { xs: '4rem', sm: '6rem' } }}>
                             <ReactTyped strings={["Interactive Live Coding \nand Teaching Platform"]} typeSpeed={40} />
                         </Typography>
-                        <Button variant="contained">Get started</Button>
+                        <Button component={Link} to="/register" variant="contained">Get started</Button>
                     </CardContent>
                 </Card>
             </Grid>

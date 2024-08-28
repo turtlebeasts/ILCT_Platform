@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Typography, Toolbar, Box, Grid, IconButton, Button, SwipeableDrawer } from '@mui/material';
-import ChatBox from './ChatBox';
+import ChatBox from '../chatbox/ChatBox';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import ChatIcon from '@mui/icons-material/Chat';
-import GetStarted from './GetStarted';
+import GetStarted from '../getStarted/GetStarted';
 
 
-const MainContent = ({ selectedChannel, drawerWidth }) => {
+const MainContent = ({ selectedChannel }) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const [chatOpen, setChatOpen] = useState(false);
@@ -41,9 +41,8 @@ const MainContent = ({ selectedChannel, drawerWidth }) => {
                     <Typography variant="h4" component="h1" gutterBottom>
                         {selectedChannel == null
                             ? <GetStarted />
-                            : `${selectedChannel.name} (channel id: ${selectedChannel.id})`}
+                            : `${selectedChannel.name}`}
                     </Typography>
-                    {/* Add your main content here */}
                 </Grid>
                 {!isMobile && isChannelSelected && (
                     <Grid item xs={4} sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>

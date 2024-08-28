@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import PasswordStrength from '../components/PasswordStrength';
 import PasswordConfirmation from '../components/PasswordConfirmation';
+import { check_email, register_user } from '../api/authService';
 
 const Register = () => {
     const [firstName, setFirstName] = useState('');
@@ -12,6 +13,7 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
+    const [check_email_message, setEmailMessage] = useState(null)
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -22,20 +24,20 @@ const Register = () => {
             return;
         }
 
-        try {
-            const response = await axios.post('https://ilct-platform.onrender.com/register', {
-                firstName,
-                lastName,
-                email,
-                password,
-            });
-            setMessage(response.data);
-            navigate('/login'); // Redirect to login after registration
-        } catch (error) {
-            console.error('Error registering user:', error);
-            setMessage('Error registering user');
+        const response = await register_user(firstName, lastName, email, password)
+
+        if (response.status == 201) {
+            navigate('/login')
+        } else {
+            setMessage(response.data)
         }
     };
+
+    const handleEmailCheck = async (e) => {
+        e.preventDefault();
+
+        email !== '' && setEmailMessage(await check_email(email))
+    }
 
     return (
         <Container maxWidth="sm">
@@ -67,8 +69,11 @@ const Register = () => {
                         margin="normal"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        onBlur={handleEmailCheck}
                         required
                         autoComplete='new-email'
+                        error={check_email_message !== null && check_email_message.status !== 200}
+                        helperText={check_email_message !== null && check_email_message.status !== 200 && check_email_message.data}
                     />
                     <TextField
                         label="Password"
@@ -92,7 +97,7 @@ const Register = () => {
                         required
                     />
                     <PasswordConfirmation password={password} confirmPassword={confirmPassword} />
-                    <Button type="submit" variant="contained" color="primary">
+                    <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
                         Register
                     </Button>
                 </form>

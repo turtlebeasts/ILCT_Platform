@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Drawer, AppBar, Toolbar, Typography, Box, CssBaseline, Button, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import { io } from 'socket.io-client';
-import ChannelList from './ChannelList';
-import CreateChannelModal from './CreateChannelModal';
-import MainContent from './MainContent';
-import TopMenu from './TopMenu';
+import ChannelList from './components/channelList/ChannelList';
+import CreateChannelModal from './components/createChannelModal/CreateChannelModal';
+import MainContent from './components/mainContent/MainContent';
+import TopMenu from './components/topMenu/TopMenu';
+import { fetchChannels } from '../../api/channelService';
+import socket from '../../utils/socket';
 
 const drawerWidth = 240;
-const socket = io(import.meta.env.VITE_API_URL_GLOBAL);
 
 const Dashboard = () => {
     const [selectedChannel, setSelectedChannel] = useState(null);
@@ -23,39 +22,24 @@ const Dashboard = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const [mobileOpen, setMobileOpen] = useState(false);
 
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
-
-
     const navigate = useNavigate();
-
-    const fetchChannels = async () => {
-        try {
-            const { data } = await axios.get(`${import.meta.env.VITE_API_URL_GLOBAL}/channels`, {
-                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-            });
-            setChannels(data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) navigate('/login', { replace: true });
-        fetchChannels();
+        const getChannels = async () => setChannels(await fetchChannels())
+        getChannels()
     }, []);
 
     useEffect(() => {
-        const updateChannels = () => fetchChannels();
+        const updateChannels = async () => setChannels(await fetchChannels());
         const updateSelectedChannel = async (data) => {
-            await fetchChannels();
+            setChannels(await fetchChannels())
             if (selectedChannel?.id == data.id) setSelectedChannel((prev) => ({ ...prev, name: data.channel_name }));
         };
 
-        socket.on('channel_delete', () => {
-            fetchChannels();
+        socket.on('channel_delete', async () => {
+            setChannels(await fetchChannels())
             setSelectedChannel(null);
         });
         socket.on('channel_created', updateChannels);
@@ -83,7 +67,7 @@ const Dashboard = () => {
                             color="inherit"
                             aria-label="open drawer"
                             edge="start"
-                            onClick={handleDrawerToggle}
+                            onClick={() => setMobileOpen(!mobileOpen)}
                             sx={{ mr: 2 }}
                         >
                             <MenuIcon />
@@ -98,7 +82,7 @@ const Dashboard = () => {
             <Drawer
                 variant={isMobile ? 'temporary' : 'permanent'}
                 open={isMobile ? mobileOpen : true}
-                onClose={handleDrawerToggle}
+                onClose={() => setMobileOpen(!mobileOpen)}
                 sx={{
                     width: drawerWidth,
                     '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box' },
@@ -109,12 +93,12 @@ const Dashboard = () => {
                     <CreateChannelModal
                         open={createChannelModalOpen}
                         handleClose={() => setCreateChannelModalOpen(false)}
-                        onChannelCreated={fetchChannels}
+                        setChannels={setChannels}
                     />
                     <ChannelList
                         channels={channels}
                         onChannelSelect={setSelectedChannel}
-                        drawerClose={handleDrawerToggle}
+                        drawerClose={() => setMobileOpen(!mobileOpen)}
                         onCreateChannelClick={() => setCreateChannelModalOpen(true)}
                     />
                 </Box>

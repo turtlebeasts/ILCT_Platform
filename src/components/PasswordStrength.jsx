@@ -16,6 +16,6 @@ export default function PasswordStrength({ password }) {
     }, [password]);
 
     return (
-        password && <LinearProgress variant="determinate" value={strength} color={strength <= 30 ? 'error' : strength <= 60 ? 'warning' : 'success'} />
+        password && <LinearProgress variant="determinate" value={strength > 60 ? 100 : strength} color={strength <= 30 ? 'error' : strength <= 60 ? 'warning' : 'success'} />
     );
 }

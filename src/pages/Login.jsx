@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
-import { TextField, Button, Container, Box, Typography } from '@mui/material';
+import { TextField, Button, Container, Box, Typography, CircularProgress, Card, CardContent } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import SampleLogin from '../components/SampleLogin';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL_GLOBAL}/login`, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL_GLOBAL}/auth/login`, {
                 email,
                 password,
             });
@@ -22,29 +25,19 @@ const Login = () => {
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('user_id', response.data.user.id);
                 localStorage.setItem('user_email', response.data.user.email);
-                navigate('/dashboard'); // Redirect to dashboard after login
+
+                navigate('/dashboard');
             } else {
                 setMessage('Login failed. Please try again.');
             }
         } catch (error) {
-            if (error.response) {
-                // The request was made and the server responded with a status code
-                // that falls out of the range of 2xx
-                console.error('Response data:', error.response.data);
-                console.error('Response status:', error.response.status);
-                console.error('Response headers:', error.response.headers);
-            } else if (error.request) {
-                // The request was made but no response was received
-                // `error.request` is an instance of XMLHttpRequest in the browser
-                // and an instance of http.ClientRequest in Node.js
-                console.error('Request data:', error.request);
-            } else {
-                // Something happened in setting up the request that triggered an Error
-                console.error('Error message:', error.message);
-            }
-            setMessage('Invalid email or password');
+            console.error('Login error:', error);
+            setMessage('An error occurred. Please try again.');
+        } finally {
+            setLoading(false);
         }
     };
+
 
     return (
         <Container maxWidth="sm">
@@ -73,9 +66,10 @@ const Login = () => {
                         required
                         autoComplete="new-password"
                     />
-                    <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
-                        Login
+                    <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }} disabled={loading}>
+                        {loading ? <CircularProgress size={25} /> : "login"}
                     </Button>
+                    <SampleLogin setEmail={setEmail} setPassword={setPassword} />
                 </form>
                 {message && <Typography variant="body1" color="error">{message}</Typography>}
             </Box>

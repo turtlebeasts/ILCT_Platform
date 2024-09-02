@@ -4,8 +4,10 @@ import { useState } from 'react';
 import DeleteChannelModal from '../deleteChannelModal/DeleteChannelModal';
 import RenameChannelModal from '../renameChannelModal/RenameChannelModal';
 import { deleteChannel, renameChannel } from '../../../../api/channelService';
+import { useChannel } from '../context/channelContent';
 
-export default function TopMenu({ selectedChannel, setSelectedChannel }) {
+export default function TopMenu() {
+    const { selectedChannel, setSelectedChannel } = useChannel()
     const [anchorEl, setAnchorEl] = useState(null);
     const [deleteModalOpen, setDeleteModal] = useState(false)
     const [renameModalOpen, setRenameModal] = useState(false);

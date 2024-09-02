@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/dashboard/Dashboard';
 import { useState } from 'react';
 import { lightTheme, darkTheme } from './theme';
+import { ChannelProvider } from './pages/dashboard/components/context/channelContent';
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
@@ -50,12 +51,14 @@ function App() {
             </Grid>
           </Grid>
         </Container>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
+        <ChannelProvider>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Routes>
+        </ChannelProvider>
       </Router>
     </ThemeProvider>
   );

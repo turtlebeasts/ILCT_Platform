@@ -11,11 +11,13 @@ import TopMenu from './components/topMenu/TopMenu';
 import { fetchChannels } from '../../api/channelService';
 import socket from '../../utils/socket';
 import { ChannelOptionsProvider } from './components/context/context'; // Adjust the path as needed
+import { useChannel } from './components/context/channelContent';
 
 const drawerWidth = 240;
 
 const Dashboard = () => {
-    const [selectedChannel, setSelectedChannel] = useState(null);
+    // const [selectedChannel, setSelectedChannel] = useState(null);
+    const { selectedChannel, setSelectedChannel } = useChannel()
     const [channels, setChannels] = useState([]);
     const [createChannelModalOpen, setCreateChannelModalOpen] = useState(false);
 
@@ -77,7 +79,7 @@ const Dashboard = () => {
                     <Typography variant="h6" noWrap>
                         {selectedChannel?.name || 'Dashboard'}
                     </Typography>
-                    {selectedChannel && <TopMenu selectedChannel={selectedChannel} setSelectedChannel={setSelectedChannel} />}
+                    {selectedChannel && <TopMenu selectedChannel={selectedChannel} />}
                 </Toolbar>
             </AppBar>
             <Drawer

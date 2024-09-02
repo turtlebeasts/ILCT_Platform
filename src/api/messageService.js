@@ -18,7 +18,6 @@ export const fetchMessages = async (channelId) => {
 
 export const sendMessage = async (channelId, newMessage) => {
     const creds = getCreds()
-    console.log(newMessage)
     if (newMessage.trim() !== '') {
         try {
             await axios.post(`${import.meta.env.VITE_API_URL_GLOBAL}/message/channels/${channelId}/`, {

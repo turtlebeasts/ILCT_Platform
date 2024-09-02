@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Card, CardContent } from '@mui/material';
+import { Box, Typography, Card, CardContent, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Snackbar } from '@mui/material';
 import socket from '../../../../../utils/socket';
 import { useChannel } from '../../context/channelContent';
+import { save_session } from '../../../../../api/jamboardService';
+import LoadSessionButton from './loadSession';
 
 const Jamboard = () => {
     const [code, setCode] = useState('');
-    const { selectedChannel } = useChannel()
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const [sessionName, setSessionName] = useState('');
+    const { selectedChannel } = useChannel();
+    const [snackBarOpen, setSnackBarOpen] = useState(false)
 
     useEffect(() => {
         socket.on('code_update', (data) => {
@@ -15,7 +20,7 @@ const Jamboard = () => {
         });
 
         return () => socket.off('code_update');
-    }, []);
+    }, [selectedChannel.id]);
 
     const handleKeyDown = (event) => {
         if (event.key === 'Tab') {
@@ -36,6 +41,19 @@ const Jamboard = () => {
         socket.emit('code_change', { channel_id: selectedChannel.id, code_update: event.target.value });
     };
 
+    const handleSave = async () => {
+        const data = {
+            channel_id: selectedChannel.id,
+            code,
+            sessionName
+        }
+        if (await save_session(data)) {
+            setDialogOpen(false)
+            setSessionName('')
+            setSnackBarOpen(true)
+        }
+    }
+
     return (
         <Box sx={{ padding: 2 }}>
             <Typography variant="h5" gutterBottom>
@@ -48,6 +66,7 @@ const Jamboard = () => {
                         onChange={handleChange}
                         onKeyDown={handleKeyDown}
                         placeholder="Start typing your code here..."
+                        rows={20}
                         style={{
                             width: '100%',
                             height: '100%',
@@ -64,6 +83,37 @@ const Jamboard = () => {
                     />
                 </CardContent>
             </Card>
+            <Box sx={{ p: 2, display: 'flex', justifyContent: 'flex-end' }}>
+                <LoadSessionButton setCode={setCode} />
+                <Button variant="contained" color="primary" onClick={() => setDialogOpen(true)}>
+                    Save Session
+                </Button>
+            </Box>
+            <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+                <DialogTitle>Save Session</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        label="Session Name"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        value={sessionName}
+                        onChange={(e) => setSessionName(e.target.value)}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setDialogOpen(false)}>Cancel</Button>
+                    <Button onClick={handleSave}>Save</Button>
+                </DialogActions>
+            </Dialog>
+            <Snackbar
+                open={snackBarOpen}
+                onClose={() => setSnackBarOpen(false)}
+                message='Session saved'
+                autoHideDuration={2000}
+            />
         </Box>
     );
 };

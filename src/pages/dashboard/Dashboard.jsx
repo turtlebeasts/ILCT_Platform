@@ -10,6 +10,7 @@ import MainContent from './components/mainContent/MainContent';
 import TopMenu from './components/topMenu/TopMenu';
 import { fetchChannels } from '../../api/channelService';
 import socket from '../../utils/socket';
+import { ChannelOptionsProvider } from './components/context/context'; // Adjust the path as needed
 
 const drawerWidth = 240;
 
@@ -108,7 +109,9 @@ const Dashboard = () => {
                     </Button>
                 </Box>
             </Drawer>
-            <MainContent selectedChannel={selectedChannel} drawerWidth={drawerWidth} />
+            <ChannelOptionsProvider>
+                <MainContent selectedChannel={selectedChannel} drawerWidth={drawerWidth} />
+            </ChannelOptionsProvider>
         </Box>
     );
 };

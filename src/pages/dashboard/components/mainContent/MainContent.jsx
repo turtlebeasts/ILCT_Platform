@@ -1,29 +1,31 @@
-import React, { useState } from 'react';
-import { Typography, Toolbar, Box, Grid, IconButton, Button, SwipeableDrawer } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Typography, Toolbar, Box, Grid, IconButton, SwipeableDrawer } from '@mui/material';
 import ChatBox from '../chatbox/ChatBox';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import ChatIcon from '@mui/icons-material/Chat';
 import GetStarted from '../getStarted/GetStarted';
-
+import ChannelOptions from './channelOptions/channelOptions';
+import { useChannelOptions } from '../context/context';
 
 const MainContent = ({ selectedChannel }) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const { resetOptions } = useChannelOptions();
     const [chatOpen, setChatOpen] = useState(false);
 
     const toggleChatBox = (open) => (event) => {
-        if (
-            event &&
-            event.type === 'keydown' &&
-            (event.key === 'Tab' || event.key === 'Shift')
-        ) {
+        if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
         setChatOpen(open);
     };
 
     const isChannelSelected = selectedChannel !== null;
+
+    useEffect(() => {
+        resetOptions();
+    }, [selectedChannel]);
 
     return (
         <Box
@@ -38,11 +40,10 @@ const MainContent = ({ selectedChannel }) => {
             <Toolbar />
             <Grid container spacing={2} sx={{ height: 'calc(90vh - 64px)' }}>
                 <Grid item xs={12} md={isChannelSelected && !isMobile ? 8 : 12} sx={{ overflowY: 'auto' }}>
-                    <Typography variant="h4" component="h1" gutterBottom>
-                        {selectedChannel == null
-                            ? <GetStarted />
-                            : `${selectedChannel.name}`}
+                    <Typography variant="h6" component="h6" gutterBottom>
+                        {selectedChannel == null ? <GetStarted /> : `${selectedChannel.name}`}
                     </Typography>
+                    {isChannelSelected && <ChannelOptions />}
                 </Grid>
                 {!isMobile && isChannelSelected && (
                     <Grid item xs={4} sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>

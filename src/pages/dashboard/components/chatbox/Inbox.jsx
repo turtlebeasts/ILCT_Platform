@@ -13,7 +13,6 @@ export default function Inbox({ messages }) {
                             {message.email}
                         </Typography>
                         <Typography variant="body1">{message.content}</Typography>
-                        <Divider />
                     </Box>
                 </Box>
             ))}

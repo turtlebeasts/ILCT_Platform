@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Card, CardContent, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Snackbar } from '@mui/material';
+import { Box, Typography, Card, CardContent, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Snackbar, IconButton } from '@mui/material';
 import socket from '../../../../../utils/socket';
 import { useChannel } from '../../context/channelContent';
 import { save_session } from '../../../../../api/jamboardService';
@@ -86,8 +86,11 @@ const Jamboard = () => {
                 </CardContent>
             </Card>
             <Box sx={{ p: 2, display: 'flex', justifyContent: 'space-between' }}>
-                <Button variant='outlined' startIcon={<DeleteIcon />} onClick={() => setCode('')} disabled={code == ''}>Clear</Button>
-                <Box>
+                <Button variant='outlined' sx={{ display: { xs: 'none', sm: 'block' } }} startIcon={<DeleteIcon />} onClick={() => setCode('')} disabled={code == ''}>Clear</Button>
+                <IconButton sx={{ display: { xs: 'block', sm: 'none' } }} onClick={() => setCode('')} disabled={code == ''}>
+                    <DeleteIcon />
+                </IconButton>
+                <Box sx={{ display: 'flex', justifyContent: 'end' }}>
                     <LoadSessionButton setCode={setCode} />
                     <Button variant="contained" color="primary" disabled={code == ''} onClick={() => setDialogOpen(true)} startIcon={<CloudUploadIcon />}>
                         Save Session

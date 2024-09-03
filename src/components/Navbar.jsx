@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Container, Grid, Typography, Link, Box, IconButton } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import BedtimeIcon from '@mui/icons-material/Bedtime';
 import Brightness5Icon from '@mui/icons-material/Brightness5';
 import DiamondIcon from '@mui/icons-material/Diamond';
 
 export default function Navbar({ darkMode, handleThemeChange }) {
     const [shrink, setShrink] = useState(false);
+    const location = useLocation()
 
     useEffect(() => {
         const handleScroll = () => {
@@ -35,47 +36,51 @@ export default function Navbar({ darkMode, handleThemeChange }) {
         zIndex: 1000,
     };
 
-    return (
-        <Box sx={navbarStyle}>
-            <Container>
-                <Grid container justifyContent="space-between" alignItems="center">
-                    <Grid item>
-                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <DiamondIcon color="primary" />
-                            <Typography color={darkMode ? "white" : "black"} sx={{ display: { sm: 'block', xs: 'none' } }}>
-                                ILCTp
-                            </Typography>
-                        </Box>
+    if (location.pathname !== '/dashboard') {
+        return (
+            <Box sx={navbarStyle}>
+                <Container>
+                    <Grid container justifyContent="space-between" alignItems="center">
+                        <Grid item>
+                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <DiamondIcon color="primary" />
+                                <Typography color={darkMode ? "white" : "black"} sx={{ display: { sm: 'block', xs: 'none' } }}>
+                                    ILCTp
+                                </Typography>
+                            </Box>
+                        </Grid>
+                        <Grid item>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexWrap: 'wrap',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    typography: 'body1',
+                                    '& > :not(style) ~ :not(style)': {
+                                        ml: 2,
+                                    },
+                                }}
+                            >
+                                <Link component={RouterLink} to="/" color="text.secondary" underline='none'>
+                                    Home
+                                </Link>
+                                <Link component={RouterLink} to="/login" color="text.secondary" underline='none'>
+                                    Login
+                                </Link>
+                                <Link component={RouterLink} to="/register" color="text.secondary" underline='none'>
+                                    Register
+                                </Link>
+                                <IconButton onClick={handleThemeChange}>
+                                    {darkMode ? <BedtimeIcon /> : <Brightness5Icon />}
+                                </IconButton>
+                            </Box>
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                flexWrap: 'wrap',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                typography: 'body1',
-                                '& > :not(style) ~ :not(style)': {
-                                    ml: 2,
-                                },
-                            }}
-                        >
-                            <Link component={RouterLink} to="/" color="text.secondary" underline='none'>
-                                Home
-                            </Link>
-                            <Link component={RouterLink} to="/login" color="text.secondary" underline='none'>
-                                Login
-                            </Link>
-                            <Link component={RouterLink} to="/register" color="text.secondary" underline='none'>
-                                Register
-                            </Link>
-                            <IconButton onClick={handleThemeChange}>
-                                {darkMode ? <BedtimeIcon /> : <Brightness5Icon />}
-                            </IconButton>
-                        </Box>
-                    </Grid>
-                </Grid>
-            </Container>
-        </Box>
-    );
+                </Container>
+            </Box>
+        )
+    } else {
+        return <></>
+    }
 }

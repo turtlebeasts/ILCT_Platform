@@ -21,7 +21,7 @@ export default function Navbar({ darkMode, handleThemeChange }) {
                     <Grid item>
                         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             <DiamondIcon color="primary" />
-                            <Typography color={darkMode ? "white" : "black"}>ILCTp</Typography>
+                            <Typography color={darkMode ? "white" : "black"} sx={{ display: { sm: 'block', xs: 'none' } }}>ILCTp</Typography>
                         </Box>
                     </Grid>
                     <Grid item>

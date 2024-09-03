@@ -1,5 +1,8 @@
 import React from 'react';
 import { Box, Container, Grid, Typography, Link } from '@mui/material';
+import EmailIcon from '@mui/icons-material/Email';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 const Footer = () => {
     return (
@@ -10,16 +13,17 @@ const Footer = () => {
                 padding: '2rem 0',
                 borderTop: '1px solid',
                 borderColor: 'divider',
+                textAlign: { xs: 'center', sm: 'start' }
             }}
         >
             <Container maxWidth="md">
                 <Grid container spacing={4}>
                     <Grid item xs={12} sm={4}>
                         <Typography variant="h6" gutterBottom>
-                            Company
+                            Contributions
                         </Typography>
                         <Typography variant="body2" component="p">
-                            Your company description or slogan.
+                            Feel free to contribute with your ideas to this project at <br /><Link href="https://github.com/turtlebeasts/ILCT_Platform">turtlebeasts/ILCT_platform</Link>
                         </Typography>
                     </Grid>
                     <Grid item xs={12} sm={4}>
@@ -44,19 +48,26 @@ const Footer = () => {
                     </Grid>
                     <Grid item xs={12} sm={4}>
                         <Typography variant="h6" gutterBottom>
-                            Contact Us
+                            Contact Me
                         </Typography>
-                        <Typography variant="body2" component="p">
-                            Email: info@yourcompany.com
-                        </Typography>
-                        <Typography variant="body2" component="p">
-                            Phone: (123) 456-7890
-                        </Typography>
+                        <Box sx={{ display: 'flex', justifyContent: { xs: 'center', sm: 'start' } }}>
+                            <Link href="mailto:mrigz179@gmail.com?subject=ILCT+platform">
+                                <EmailIcon />
+                            </Link>
+
+                            <Link target="_blank" href="https://www.linkedin.com/in/mriganka-das-05385822a/">
+                                <LinkedInIcon />
+                            </Link>
+
+                            <Link target="_blank" href="https://www.github.com/turtlebeasts">
+                                <GitHubIcon />
+                            </Link>
+                        </Box>
                     </Grid>
                 </Grid>
                 <Box mt={4} textAlign="center">
                     <Typography variant="body2" color="textSecondary">
-                        © {new Date().getFullYear()} Your Company. All rights reserved.
+                        © {new Date().getFullYear()} Mriganka, Presidency College, Bangalore.
                     </Typography>
                 </Box>
             </Container>

@@ -4,6 +4,8 @@ import socket from '../../../../../utils/socket';
 import { useChannel } from '../../context/channelContent';
 import { save_session } from '../../../../../api/jamboardService';
 import LoadSessionButton from './loadSession';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Jamboard = () => {
     const [code, setCode] = useState('');
@@ -83,11 +85,14 @@ const Jamboard = () => {
                     />
                 </CardContent>
             </Card>
-            <Box sx={{ p: 2, display: 'flex', justifyContent: 'flex-end' }}>
-                <LoadSessionButton setCode={setCode} />
-                <Button variant="contained" color="primary" onClick={() => setDialogOpen(true)}>
-                    Save Session
-                </Button>
+            <Box sx={{ p: 2, display: 'flex', justifyContent: 'space-between' }}>
+                <Button variant='outlined' startIcon={<DeleteIcon />} onClick={() => setCode('')} disabled={code == ''}>Clear</Button>
+                <Box>
+                    <LoadSessionButton setCode={setCode} />
+                    <Button variant="contained" color="primary" disabled={code == ''} onClick={() => setDialogOpen(true)} startIcon={<CloudUploadIcon />}>
+                        Save Session
+                    </Button>
+                </Box>
             </Box>
             <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
                 <DialogTitle>Save Session</DialogTitle>

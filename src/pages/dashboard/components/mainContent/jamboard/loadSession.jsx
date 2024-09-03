@@ -15,7 +15,7 @@ export default function LoadSessionButton({ setCode }) {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = (session) => {
-        setCode(session.code)
+        if (session.code) setCode(session.code)
         socket.emit('code_change', { channel_id: selectedChannel.id, code_update: session.code });
         setAnchorEl(null);
     };

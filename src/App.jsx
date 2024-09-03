@@ -8,49 +8,18 @@ import Dashboard from './pages/dashboard/Dashboard';
 import { useState } from 'react';
 import { lightTheme, darkTheme } from './theme';
 import { ChannelProvider } from './pages/dashboard/components/context/channelContent';
+import Navbar from './components/Navbar';
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
 
-  const handleThemeChange = () => {
-    setDarkMode(!darkMode);
-  };
+  const handleThemeChange = () => setDarkMode(!darkMode);
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
       <Router>
-        <Container>
-          <Grid container justifyContent="space-between" alignItems="center">
-            <Grid item>
-              <Switch checked={darkMode} onChange={handleThemeChange} />
-              <Typography variant="body1" display="inline">{darkMode ? 'Dark Mode' : 'Light Mode'}</Typography>
-            </Grid>
-            <Grid item>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  justifyContent: 'center',
-                  typography: 'body1',
-                  '& > :not(style) ~ :not(style)': {
-                    ml: 2,
-                  },
-                }}
-              >
-                <Link component={link} to="/" color="text.secondary" underline='none'>
-                  Home
-                </Link>
-                <Link component={link} to="/login" color="text.secondary" underline='none'>
-                  Login
-                </Link>
-                <Link component={link} to="/register" color="text.secondary" underline='none'>
-                  Register
-                </Link>
-              </Box>
-            </Grid>
-          </Grid>
-        </Container>
+        <Navbar darkMode={darkMode} handleThemeChange={handleThemeChange} />
         <ChannelProvider>
           <Routes>
             <Route path="/" element={<Home />} />

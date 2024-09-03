@@ -5,12 +5,14 @@ import DeleteChannelModal from '../deleteChannelModal/DeleteChannelModal';
 import RenameChannelModal from '../renameChannelModal/RenameChannelModal';
 import { deleteChannel, renameChannel } from '../../../../api/channelService';
 import { useChannel } from '../context/channelContent';
+import MembersModal from '../membersModal/membersModal';
 
 export default function TopMenu() {
     const { selectedChannel, setSelectedChannel } = useChannel()
     const [anchorEl, setAnchorEl] = useState(null);
     const [deleteModalOpen, setDeleteModal] = useState(false)
     const [renameModalOpen, setRenameModal] = useState(false);
+    const [membersModal, setMembersModal] = useState(false)
 
     const open = Boolean(anchorEl);
 
@@ -33,6 +35,10 @@ export default function TopMenu() {
         setRenameModal(true)
     }
     const handleClose = () => setRenameModal(false);
+    const handleMembersModal = () => {
+        setAnchorEl(null)
+        setMembersModal(prev => !prev)
+    };
 
     const handleRename = (newName) => renameChannel(selectedChannel.id, newName)
 
@@ -53,7 +59,7 @@ export default function TopMenu() {
                 }}
             >
                 <MenuItem onClick={handleOpen}>Rename</MenuItem>
-                <MenuItem onClick={() => { }}>Members</MenuItem>
+                <MenuItem onClick={handleMembersModal}>Members</MenuItem>
                 <Divider />
                 <MenuItem onClick={handleDeleteToggle} sx={{ color: 'error.main' }}>
                     Delete
@@ -69,6 +75,10 @@ export default function TopMenu() {
                 open={renameModalOpen}
                 handleClose={handleClose}
                 handleRename={handleRename}
+            />
+            <MembersModal
+                open={membersModal}
+                handleClose={handleMembersModal}
             />
         </>
     )

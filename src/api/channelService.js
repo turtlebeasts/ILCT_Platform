@@ -54,3 +54,21 @@ export const deleteChannel = async (channelId) => {
         console.error('Error deleting channel:', error.message);
     }
 };
+
+export const channel_members = async (channelId) => {
+    const creds = getCreds()
+    try {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL_GLOBAL}/channel/members/${channelId}`, {
+            headers: {
+                'Authorization': `Bearer ${creds.token}`
+            }
+        })
+        if (response.status == 200) {
+            return response.data
+        } else {
+            console.error('Failed to load members: ', response.statusText)
+        }
+    } catch (error) {
+        console.error('Error fetching channel members: ', error.message)
+    }
+}

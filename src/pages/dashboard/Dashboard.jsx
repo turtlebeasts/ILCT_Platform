@@ -12,6 +12,7 @@ import { fetchChannels } from '../../api/channelService';
 import socket from '../../utils/socket';
 import { ChannelOptionsProvider } from './components/context/context'; // Adjust the path as needed
 import { useChannel } from './components/context/channelContent';
+import JoinChannelModal from './components/joinChannelModal/JoinChannelModal';
 
 const drawerWidth = 240;
 
@@ -20,6 +21,7 @@ const Dashboard = () => {
     const { selectedChannel, setSelectedChannel } = useChannel()
     const [channels, setChannels] = useState([]);
     const [createChannelModalOpen, setCreateChannelModalOpen] = useState(false);
+    const [joinChannelModalOpen, setJoinChannelModalOpen] = useState(false)
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -98,11 +100,20 @@ const Dashboard = () => {
                         handleClose={() => setCreateChannelModalOpen(false)}
                         setChannels={setChannels}
                     />
+                    {
+                        joinChannelModalOpen &&
+                        <JoinChannelModal
+                            open={joinChannelModalOpen}
+                            handleClose={() => setJoinChannelModalOpen(false)}
+                            setChannels={setChannels}
+                        />
+                    }
                     <ChannelList
                         channels={channels}
                         onChannelSelect={setSelectedChannel}
                         drawerClose={() => setMobileOpen(!mobileOpen)}
                         onCreateChannelClick={() => setCreateChannelModalOpen(true)}
+                        onJoinChannelClick={() => setJoinChannelModalOpen(true)}
                     />
                 </Box>
                 <Box sx={{ p: 2 }}>

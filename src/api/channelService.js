@@ -72,3 +72,26 @@ export const channel_members = async (channelId) => {
         console.error('Error fetching channel members: ', error.message)
     }
 }
+
+export const searchChannels = async (channel_name) => {
+    const creds = getCreds()
+    try {
+        const { data } = await axios.post(`${import.meta.env.VITE_API_URL_GLOBAL}/channel/search`, { channel_name }, {
+            headers: { Authorization: `Bearer ${creds.token}` }
+        });
+        return data
+    } catch (error) {
+        console.error(error.response.status);
+        return []
+    }
+};
+
+export const joinChannel = async (channel_id) => {
+    const creds = getCreds()
+    const response = await axios.post(`${import.meta.env.VITE_API_URL_GLOBAL}/channel/join`, { channel_id }, {
+        headers: { Authorization: `Bearer ${creds.token}` }
+    })
+    const { code } = response.data
+    if (code == 200) return true
+    return false
+}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Modal, Box, Typography, TextField, Button, FormControlLabel, Checkbox } from '@mui/material';
+import { Modal, Box, Typography, TextField, Button, FormControlLabel, Checkbox, Alert } from '@mui/material';
 import { useChannel } from '../context/channelContent';
 
 const RenameChannelModal = ({ open, handleClose, handleRename }) => {
@@ -51,7 +51,9 @@ const RenameChannelModal = ({ open, handleClose, handleRename }) => {
                     onChange={(e) => setNewName(e.target.value)}
                 />
                 <FormControlLabel control={<Checkbox checked={isPrivate} onChange={(e, value) => setPrivate(value)} />} label="Make private" /><br />
+                {isPrivate && <Alert severity="warning">Private channels won't appear on channel search</Alert>}
                 <Button
+                    sx={{ mt: 2 }}
                     variant="contained"
                     color="primary"
                     onClick={handleSubmit}

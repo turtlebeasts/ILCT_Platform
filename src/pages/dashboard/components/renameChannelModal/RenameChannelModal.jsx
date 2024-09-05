@@ -1,11 +1,21 @@
-import { useState } from 'react';
-import { Modal, Box, Typography, TextField, Button } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Modal, Box, Typography, TextField, Button, FormControlLabel, Checkbox } from '@mui/material';
+import { useChannel } from '../context/channelContent';
 
 const RenameChannelModal = ({ open, handleClose, handleRename }) => {
+    const { selectedChannel } = useChannel();
     const [newName, setNewName] = useState('');
+    const [isPrivate, setPrivate] = useState(false);
+
+    useEffect(() => {
+        if (open && selectedChannel) {
+            setNewName(selectedChannel.name || '');
+            setPrivate(Boolean(selectedChannel.visibility))
+        }
+    }, [open, selectedChannel]);
 
     const handleSubmit = () => {
-        handleRename(newName);
+        handleRename(newName, isPrivate);
         handleClose();
     };
 
@@ -30,23 +40,24 @@ const RenameChannelModal = ({ open, handleClose, handleRename }) => {
                 }}
             >
                 <Typography id="rename-channel-modal-title" variant="h6" component="h2">
-                    Rename Channel
+                    General
                 </Typography>
                 <TextField
                     fullWidth
-                    label="New Channel Name"
+                    label="Channel Name"
                     variant="outlined"
                     margin="normal"
                     value={newName}
                     onChange={(e) => setNewName(e.target.value)}
                 />
+                <FormControlLabel control={<Checkbox checked={isPrivate} onChange={(e, value) => setPrivate(value)} />} label="Make private" /><br />
                 <Button
                     variant="contained"
                     color="primary"
                     onClick={handleSubmit}
                     fullWidth
                 >
-                    Rename
+                    Save
                 </Button>
             </Box>
         </Modal>

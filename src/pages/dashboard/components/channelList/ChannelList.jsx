@@ -1,6 +1,7 @@
 import React from 'react';
-import { List, ListItemText, Button, ListItemButton, ListItem, Box, ButtonGroup } from '@mui/material';
+import { List, ListItemText, Button, ListItemButton, ListItem, Box, ButtonGroup, ListItemIcon } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const ChannelList = ({ channels, onChannelSelect, onCreateChannelClick, drawerClose, onJoinChannelClick }) => {
     const handleChannelSelect = (channel) => {
@@ -24,6 +25,13 @@ const ChannelList = ({ channels, onChannelSelect, onCreateChannelClick, drawerCl
                     <ListItem key={channel.id} disablePadding>
                         <ListItemButton onClick={() => handleChannelSelect(channel)}>
                             <ListItemText primary={channel.name} />
+                            {
+                                channel.visibility ?
+                                    <ListItemIcon>
+                                        <VisibilityOffIcon color='disabled' />
+                                    </ListItemIcon>
+                                    : ""
+                            }
                         </ListItemButton>
                     </ListItem>
                 ))}

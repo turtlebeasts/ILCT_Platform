@@ -14,10 +14,10 @@ export const fetchChannels = async () => {
     }
 };
 
-export const renameChannel = async (channelId, newName) => {
+export const renameChannel = async (channelId, newName, isPrivate) => {
     const creds = getCreds()
     try {
-        const response = await axios.put(`${import.meta.env.VITE_API_URL_GLOBAL}/channel/rename-channel/${channelId}`, { newName }, {
+        const response = await axios.put(`${import.meta.env.VITE_API_URL_GLOBAL}/channel/rename-channel/${channelId}`, { newName, isPrivate }, {
             headers: {
                 'Authorization': `Bearer ${creds.token}`,
                 'Content-Type': 'application/json'

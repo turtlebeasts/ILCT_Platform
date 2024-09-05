@@ -40,7 +40,7 @@ export default function TopMenu() {
         setMembersModal(prev => !prev)
     };
 
-    const handleRename = (newName) => renameChannel(selectedChannel.id, newName)
+    const handleRename = (newName, isPrivate) => renameChannel(selectedChannel.id, newName, isPrivate)
 
     return (
         <>
@@ -58,7 +58,7 @@ export default function TopMenu() {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={handleOpen}>Rename</MenuItem>
+                <MenuItem onClick={handleOpen}>Setting</MenuItem>
                 <MenuItem onClick={handleMembersModal}>Members</MenuItem>
                 <Divider />
                 <MenuItem onClick={handleDeleteToggle} sx={{ color: 'error.main' }}>

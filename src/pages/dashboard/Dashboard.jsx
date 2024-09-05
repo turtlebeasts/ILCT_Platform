@@ -13,6 +13,8 @@ import socket from '../../utils/socket';
 import { ChannelOptionsProvider } from './components/context/context'; // Adjust the path as needed
 import { useChannel } from './components/context/channelContent';
 import JoinChannelModal from './components/joinChannelModal/JoinChannelModal';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import PublicIcon from '@mui/icons-material/Public';
 
 const drawerWidth = 240;
 
@@ -78,9 +80,19 @@ const Dashboard = () => {
                             <MenuIcon />
                         </IconButton>
                     )}
-                    <Typography variant="h6" noWrap>
-                        {selectedChannel?.name || 'Dashboard'}
-                    </Typography>
+                    <Box>
+                        <Typography variant="h6" noWrap>
+                            {selectedChannel?.name || 'Dashboard'}
+                            {" "}
+                            {
+                                selectedChannel ?
+                                    selectedChannel.visibility ?
+                                        <VisibilityOffIcon sx={{ fontSize: 18, color: 'grey' }} /> :
+                                        <PublicIcon sx={{ fontSize: 18 }} color='primary' />
+                                    : ""
+                            }
+                        </Typography>
+                    </Box>
                     {selectedChannel && <TopMenu selectedChannel={selectedChannel} />}
                 </Toolbar>
             </AppBar>

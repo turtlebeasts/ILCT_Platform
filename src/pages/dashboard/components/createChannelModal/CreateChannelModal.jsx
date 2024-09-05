@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { Modal, Box, Typography, TextField, Button } from '@mui/material';
+import { Modal, Box, Typography, TextField, Button, Checkbox, FormControlLabel } from '@mui/material';
 import axios from 'axios';
 import { fetchChannels } from '../../../../api/channelService';
 
 const CreateChannelModal = ({ open, handleClose, setChannels }) => {
     const [newChannelName, setNewChannelName] = useState('');
+    const [isPrivate, setPrivate] = useState(false)
 
     const handleSubmit = async () => {
         if (newChannelName) {
             try {
-                await axios.post(`${import.meta.env.VITE_API_URL_GLOBAL}/channel/add-channel`, { name: newChannelName }, {
+                await axios.post(`${import.meta.env.VITE_API_URL_GLOBAL}/channel/add-channel`, { name: newChannelName, isPrivate: isPrivate }, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     },
@@ -53,6 +54,7 @@ const CreateChannelModal = ({ open, handleClose, setChannels }) => {
                     value={newChannelName}
                     onChange={(e) => setNewChannelName(e.target.value)}
                 />
+                <FormControlLabel control={<Checkbox value={isPrivate} onChange={(e, value) => setPrivate(value)} />} label="Make private" /><br />
                 <Button
                     variant="contained"
                     color="primary"
@@ -69,7 +71,7 @@ const CreateChannelModal = ({ open, handleClose, setChannels }) => {
                     Cancel
                 </Button>
             </Box>
-        </Modal>
+        </Modal >
     );
 };
 

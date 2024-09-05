@@ -6,6 +6,7 @@ import RenameChannelModal from '../renameChannelModal/RenameChannelModal';
 import { deleteChannel, renameChannel } from '../../../../api/channelService';
 import { useChannel } from '../context/channelContent';
 import MembersModal from '../membersModal/membersModal';
+import AboutModal from '../aboutModal/AboutModal';
 
 export default function TopMenu() {
     const { selectedChannel, setSelectedChannel } = useChannel()
@@ -13,6 +14,7 @@ export default function TopMenu() {
     const [deleteModalOpen, setDeleteModal] = useState(false)
     const [renameModalOpen, setRenameModal] = useState(false);
     const [membersModal, setMembersModal] = useState(false)
+    const [aboutModal, setAboutModal] = useState(false)
 
     const open = Boolean(anchorEl);
 
@@ -28,6 +30,8 @@ export default function TopMenu() {
             console.log("Error while deleting channel!")
         }
     };
+
+    const handleAboutToggle = () => setAboutModal(prev => !prev)
 
 
     const handleOpen = () => {
@@ -64,6 +68,9 @@ export default function TopMenu() {
                 <MenuItem onClick={handleDeleteToggle} sx={{ color: 'error.main' }}>
                     Delete
                 </MenuItem>
+                <MenuItem onClick={handleAboutToggle} sx={{ color: 'primary.main' }}>
+                    About
+                </MenuItem>
             </Menu>
             <DeleteChannelModal
                 deleteModalOpen={deleteModalOpen}
@@ -79,6 +86,10 @@ export default function TopMenu() {
             <MembersModal
                 open={membersModal}
                 handleClose={handleMembersModal}
+            />
+            <AboutModal
+                open={aboutModal}
+                handleClose={handleAboutToggle}
             />
         </>
     )

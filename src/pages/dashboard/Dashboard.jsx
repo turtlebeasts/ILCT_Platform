@@ -80,7 +80,7 @@ const Dashboard = () => {
                             <MenuIcon />
                         </IconButton>
                     )}
-                    <Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <Typography variant="h6" noWrap>
                             {selectedChannel?.name || 'Dashboard'}
                             {" "}
@@ -92,8 +92,8 @@ const Dashboard = () => {
                                     : ""
                             }
                         </Typography>
+                        {selectedChannel && <TopMenu selectedChannel={selectedChannel} />}
                     </Box>
-                    {selectedChannel && <TopMenu selectedChannel={selectedChannel} />}
                 </Toolbar>
             </AppBar>
             <Drawer

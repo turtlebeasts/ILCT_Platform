@@ -16,6 +16,7 @@ const JoinChannelModal = ({ open, handleClose, setChannels }) => {
             handleClose()
         } else {
             setJoinError(true)
+            setLoading(false)
         }
     }
 
@@ -37,7 +38,7 @@ const JoinChannelModal = ({ open, handleClose, setChannels }) => {
     return (
         <Modal
             open={open}
-            onClose={() => loading ? null : handleClose}
+            onClose={loading ? null : handleClose}
             aria-labelledby="create-channel-modal"
             aria-describedby="create-channel-modal-description"
         >

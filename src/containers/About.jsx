@@ -5,9 +5,10 @@ const About = () => {
     return (
         <Box
             sx={{
-                backgroundColor: 'background.paper',
+                backgroundColor: 'background.blur',
                 color: 'text.primary',
                 padding: '4rem 0',
+                backdropFilter: 'blur(10px)'
             }}
         >
             <Container maxWidth="md">

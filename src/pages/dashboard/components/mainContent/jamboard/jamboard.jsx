@@ -57,8 +57,8 @@ const Jamboard = () => {
     }
 
     return (
-        <Box sx={{ padding: 2 }}>
-            <Typography variant="h5" gutterBottom>
+        <Box sx={{ padding: 2, bgcolor: 'background.blur', backdropFilter: 'blur(20px)' }}>
+            <Typography variant="h5" gutterBottom color={'primary'}>
                 Jamboard
             </Typography>
             <Card sx={{ minHeight: '400px', display: 'flex', flexDirection: 'column' }}>

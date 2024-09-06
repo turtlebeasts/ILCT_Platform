@@ -35,10 +35,12 @@ const ChannelOptions = () => {
                                     display: 'flex',
                                     flexDirection: 'column',
                                     justifyContent: 'space-between',
+                                    bgcolor: 'background.blur',
+                                    backdropFilter: 'blur(20px)'
                                 }}
                             >
                                 <CardContent>
-                                    <Typography variant="h6" component="div">
+                                    <Typography variant="h6" component="div" color={'primary'}>
                                         {option.title}
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">

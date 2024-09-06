@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 
 export default function HeroSection() {
     return (
-        <Grid container spacing={2} sx={{ mt: 5 }}>
-            <Grid item xs={2}></Grid>
-            <Grid item xs={12} md={8}>
-                <Card>
+        <Grid container spacing={2} sx={{ my: 5 }}>
+            <Grid item xs={4}></Grid>
+            <Grid item xs={12} md={4}>
+                <Card sx={{ backgroundColor: 'background.blur', backdropFilter: 'blur(10px)' }}>
                     <CardContent>
-                        <Typography variant="h6" color={'red'}>
+                        <Typography variant="h6" color={'primary'} sx={{ textShadow: '0px 0px 10px white' }}>
                             <ReactTyped
                                 strings={[
                                     "Coding",
@@ -22,14 +22,14 @@ export default function HeroSection() {
                             >
                             </ReactTyped>
                         </Typography>
-                        <Typography variant='h1' sx={{ mb: 2, fontSize: { xs: '4rem', sm: '6rem' } }}>
-                            <ReactTyped strings={["Interactive Live Coding \nand Teaching Platform"]} typeSpeed={40} />
+                        <Typography variant='h1' sx={{ mb: 2, fontSize: { xs: '4rem', sm: '4rem' } }}>
+                            <ReactTyped strings={["Interactive Live Coding \n<br>and Teaching Platform"]} typeSpeed={40} />
                         </Typography>
                         <Button component={Link} to="/register" variant="contained">Get started</Button>
                     </CardContent>
                 </Card>
             </Grid>
-            <Grid item xs={2}></Grid>
+            <Grid item xs={4}></Grid>
         </Grid>
     )
 }

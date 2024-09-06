@@ -68,7 +68,7 @@ export default function TopMenu() {
                 <MenuItem onClick={handleDeleteToggle} sx={{ color: 'error.main' }}>
                     Delete
                 </MenuItem>
-                <MenuItem onClick={handleAboutToggle} sx={{ color: 'primary.main' }}>
+                <MenuItem onClick={handleAboutToggle} sx={{ color: 'text.info' }}>
                     About
                 </MenuItem>
             </Menu>

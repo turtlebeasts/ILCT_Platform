@@ -10,10 +10,9 @@ const GetStarted = () => {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                height: '100%',
+                height: '90vh',
                 textAlign: 'center',
-                p: 3,
-                bgcolor: 'background.default',
+                bgcolor: 'background.blur',
             }}
         >
             <Paper
@@ -22,7 +21,8 @@ const GetStarted = () => {
                     p: 4,
                     maxWidth: 400,
                     textAlign: 'center',
-                    bgcolor: 'background.paper'
+                    bgcolor: 'background.blur',
+                    backdropFilter: 'blur(10px)'
                 }}
             >
                 <InfoIcon

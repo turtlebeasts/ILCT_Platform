@@ -17,7 +17,7 @@ const HowItWorks = () => {
                 <Grid container spacing={4}>
                     <Grid item xs={12} sm={4}>
                         <Paper sx={{ padding: '2rem', textAlign: 'center' }}>
-                            <Typography variant="h6" component="h3" gutterBottom>
+                            <Typography variant="h6" component="h3" gutterBottom color={'primary'}>
                                 Step 1
                             </Typography>
                             <Typography variant="body1">
@@ -27,7 +27,7 @@ const HowItWorks = () => {
                     </Grid>
                     <Grid item xs={12} sm={4}>
                         <Paper sx={{ padding: '2rem', textAlign: 'center' }}>
-                            <Typography variant="h6" component="h3" gutterBottom>
+                            <Typography variant="h6" component="h3" gutterBottom color={'primary'}>
                                 Step 2
                             </Typography>
                             <Typography variant="body1">
@@ -37,7 +37,7 @@ const HowItWorks = () => {
                     </Grid>
                     <Grid item xs={12} sm={4}>
                         <Paper sx={{ padding: '2rem', textAlign: 'center' }}>
-                            <Typography variant="h6" component="h3" gutterBottom>
+                            <Typography variant="h6" component="h3" gutterBottom color={'primary'}>
                                 Step 3
                             </Typography>
                             <Typography variant="body1">

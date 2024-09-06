@@ -81,7 +81,7 @@ const Dashboard = () => {
                         </IconButton>
                     )}
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Typography variant="h6" noWrap>
+                        <Typography variant="h6" noWrap color={'primary.light'}>
                             {selectedChannel?.name || 'Dashboard'}
                             {" "}
                             {
@@ -129,7 +129,7 @@ const Dashboard = () => {
                     />
                 </Box>
                 <Box sx={{ p: 2 }}>
-                    <Button fullWidth variant="outlined" color="error" onClick={handleLogout}>
+                    <Button fullWidth variant="contained" color="error" onClick={handleLogout}>
                         Logout
                     </Button>
                 </Box>

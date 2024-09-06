@@ -40,39 +40,43 @@ const Login = () => {
 
 
     return (
-        <Container maxWidth="sm">
-            <Box sx={{ mt: 5 }}>
-                <Typography variant="h4" gutterBottom>
-                    Login
-                </Typography>
-                <form onSubmit={handleSubmit}>
-                    <TextField
-                        label="Email"
-                        type="email"
-                        fullWidth
-                        margin="normal"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        autoComplete="new-email"
-                    />
-                    <TextField
-                        label="Password"
-                        type="password"
-                        fullWidth
-                        margin="normal"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        autoComplete="new-password"
-                    />
-                    <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }} disabled={loading}>
-                        {loading ? <CircularProgress size={25} /> : "login"}
-                    </Button>
-                    <SampleLogin setEmail={setEmail} setPassword={setPassword} />
-                </form>
-                {message && <Typography variant="body1" color="error">{message}</Typography>}
-            </Box>
+        <Container maxWidth="sm" sx={{ mt: 5 }}>
+            <Card sx={{ backgroundColor: 'background.blur', backdropFilter: 'blur(10px)' }}>
+                <CardContent>
+                    <Box sx={{ mt: 5 }}>
+                        <Typography variant="h4" gutterBottom>
+                            Login
+                        </Typography>
+                        <form onSubmit={handleSubmit}>
+                            <TextField
+                                label="Email"
+                                type="email"
+                                fullWidth
+                                margin="normal"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                                autoComplete="new-email"
+                            />
+                            <TextField
+                                label="Password"
+                                type="password"
+                                fullWidth
+                                margin="normal"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                                autoComplete="new-password"
+                            />
+                            <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }} disabled={loading}>
+                                {loading ? <CircularProgress size={25} /> : "login"}
+                            </Button>
+                            <SampleLogin setEmail={setEmail} setPassword={setPassword} />
+                        </form>
+                        {message && <Typography variant="body1" color="error">{message}</Typography>}
+                    </Box>
+                </CardContent>
+            </Card>
         </Container>
     );
 };

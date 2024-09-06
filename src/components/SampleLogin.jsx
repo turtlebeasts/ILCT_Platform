@@ -12,7 +12,7 @@ export default function SampleLogin({ setEmail, setPassword }) {
         setPassword('jul13_p@55w0rd')
     }
     return (
-        <Card sx={{ mt: 2 }}>
+        <Card sx={{ mt: 2, backgroundColor: 'background.blur' }}>
             <CardContent>
                 <Typography variant="h6">Need test accounts?</Typography>
                 <Typography variant='body1'>Login with the following accounts</Typography>

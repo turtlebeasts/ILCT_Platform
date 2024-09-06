@@ -44,7 +44,7 @@ export default function Navbar({ darkMode, handleThemeChange }) {
                         <Grid item>
                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                 <DiamondIcon color="primary" />
-                                <Typography color={darkMode ? "white" : "black"} sx={{ display: { sm: 'block', xs: 'none' } }}>
+                                <Typography color={darkMode ? "primary" : "black"} sx={{ display: { sm: 'block', xs: 'none' } }}>
                                     ILCTp
                                 </Typography>
                             </Box>
@@ -62,16 +62,16 @@ export default function Navbar({ darkMode, handleThemeChange }) {
                                     },
                                 }}
                             >
-                                <Link component={RouterLink} to="/" color="text.secondary" underline='none'>
+                                <Link component={RouterLink} to="/" color="text.light" underline='none'>
                                     Home
                                 </Link>
-                                <Link component={RouterLink} to="/login" color="text.secondary" underline='none'>
+                                <Link component={RouterLink} to="/login" color="text.light" underline='none'>
                                     Login
                                 </Link>
-                                <Link component={RouterLink} to="/register" color="text.secondary" underline='none'>
+                                <Link component={RouterLink} to="/register" color="text.light" underline='none'>
                                     Register
                                 </Link>
-                                <IconButton onClick={handleThemeChange}>
+                                <IconButton onClick={handleThemeChange} color="primary">
                                     {darkMode ? <BedtimeIcon /> : <Brightness5Icon />}
                                 </IconButton>
                             </Box>

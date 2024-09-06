@@ -32,9 +32,10 @@ const MainContent = ({ selectedChannel }) => {
             component="main"
             sx={{
                 flexGrow: 1,
-                bgcolor: 'background.default',
+                bgcolor: 'background.blur',
+                backdropFilter: 'blur(5px)',
                 p: 3,
-                height: '90vh',
+                height: '100vh',
             }}
         >
             <Toolbar />

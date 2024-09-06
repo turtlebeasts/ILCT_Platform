@@ -32,7 +32,7 @@ const ChatBox = ({ channelId, channelName }) => {
     };
 
     return (
-        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', bgcolor: 'background.blur' }}>
             <CardContent sx={{ flex: '1 1 auto', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
                 <Typography variant="h6" gutterBottom>
                     Chat for {channelName}
